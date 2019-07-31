@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 export default class Game extends Component {
 
   displayPlaytime() {
-    let time = new Date(this.props.game.playTime)
-    let hours = time.getHours() - 1
-    let minutes = time.getMinutes()
+    let time = this.props.game.playTime
+    let hours = Math.floor(time / 60)
+    let minutes = time % 60
 
     return `${hours}h ${minutes}min`
   }

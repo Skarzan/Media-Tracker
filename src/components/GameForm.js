@@ -4,13 +4,12 @@ export default class GameForm extends Component {
 
   state = {
     title: '',
-    playtime: '',
+    playTime: '',
     startDate: '',
     endDate: '',
     beaten: false,
     completed: false,
     comment: ''
-
   }
 
   handleChange = (event) => {
@@ -27,10 +26,16 @@ export default class GameForm extends Component {
     }  
   }
 
+  updateTime = async () => {
+    const hours = Number(document.getElementById('hours').value)
+    const minutes = Number(document.getElementById('minutes').value)
+    const playTime = (hours * 60) + minutes
+    this.setState({playTime})
+  }
+
   saveChanges = (event) => {
     event.preventDefault()
     this.props.addGame(this.state)
-    console.log(this.state)
   }
 
   render() {
@@ -46,12 +51,8 @@ export default class GameForm extends Component {
           /> 
         </label>
         <label> <span>Playtime: </span> 
-          <input 
-            name="playtime"
-            value={this.state.playtime}
-            onChange={this.handleChange} 
-            type="time"
-          /> 
+          <input id="hours" type="number" min="0" onChange={this.updateTime}></input>h
+          <input id="minutes" type="number" min="0" max="59" onChange={this.updateTime}></input>min
         </label>
         <label> <span>Started at: </span> 
           <input 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Game from './Game'
 import GameForm from './GameForm'
-import gameData from '../assets/sampleGameList'
+//import gameData from '../assets/sampleGameList'
 import firebase from 'firebase'
 
 export default class GamesList extends Component {
@@ -49,8 +49,19 @@ export default class GamesList extends Component {
     await this.provideFirebaseDataToState()
   }
 
-  test(name) {
-    console.log(name)
+  totalPlaytime = () => {
+    let playTime = 0
+
+    for (let game in this.state.games) {
+      playTime += this.state.games[game].playTime
+      console.log(playTime)
+    }
+
+    let hours = Math.floor(playTime / 60)
+    let minutes = playTime % 60
+
+    return `${hours}h ${minutes}min`    
+    
   }
 
   render() {
@@ -70,6 +81,9 @@ export default class GamesList extends Component {
         <GameForm addGame={this.addGame}></GameForm>
         <div className="row">
           {games}
+        </div>
+        <div>
+          Total Playtime: {this.totalPlaytime()}
         </div>
       </div>
     )
